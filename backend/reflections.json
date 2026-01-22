@@ -1,0 +1,48 @@
+[
+  {
+    "id": "32f0391f-ef0d-43ff-89ed-7a3e63be13de",
+    "weekOfJournal": 5,
+    "journalName": "Testing JSON Backend",
+    "journalDate": "2024-11-25",
+    "taskName": "Implemented Python Backend",
+    "taskDescription": "Successfully created a Python backend with JSON file storage for the Learning Journal PWA. This includes API endpoints and validation.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PWA"
+    ],
+    "timestamp": "2025-11-25T13:47:15.747375",
+    "updatedAt": "2025-12-11T22:32:17.290520"
+  },
+  {
+    "id": "d5e94284-e350-436c-a94d-86e6fbe3b08c",
+    "weekOfJournal": 6,
+    "journalName": "Flask Backend for PWA",
+    "journalDate": "2025-11-27",
+    "taskName": "Add Update Filter Journal Data from Reflection.json",
+    "taskDescription": "In this week we have learned how to setup flask as backend and Add Update Filter Journal Data from Reflection.json",
+    "technologies": [
+      "PWA"
+    ],
+    "timestamp": "2025-11-28T00:23:36.364515",
+    "updatedAt": "2025-12-11T22:32:34.082459"
+  },
+  {
+    "id": "d2f23afe-3d88-4808-8e31-a71acd4598d5",
+    "weekOfJournal": 7,
+    "journalName": "Offline Journal Entry",
+    "journalDate": "2025-12-11",
+    "taskName": "Fully Offline Sync the PWA",
+    "taskDescription": "In this week i have implemented the offline caching in this project as lab7 task",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PWA",
+      "Manifest",
+      "Responsive Design"
+    ],
+    "timestamp": "2025-12-11T22:32:12.254002"
+  }
+]

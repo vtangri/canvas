@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#282c36">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Learning Journal PWA - Home</title>
+    <!-- Load theme immediately to prevent flash -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                    document.body.classList.add('light-mode');
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar (Injected) -->
+    <div id="nav"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title fade-in">Welcome to My Learning Journey</h1>
+                    <p class="hero-subtitle fade-in-delay">Documenting progress, one week at a time</p>
+                    <div id="timeTicker" aria-label="Current time" style="margin-top:12px; display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                        <div class="time-box" style="min-width:64px; padding:8px 10px; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); border-radius:10px; text-align:center; backdrop-filter: blur(6px);">
+                            <div id="clockHours" style="font-size:20px; font-weight:700;">00</div>
+                            <div style="font-size:11px; color:#6b7280; letter-spacing:1px; text-transform:uppercase;">Hours</div>
+                        </div>
+                        <div class="time-box" style="min-width:64px; padding:8px 10px; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); border-radius:10px; text-align:center; backdrop-filter: blur(6px);">
+                            <div id="clockMinutes" style="font-size:20px; font-weight:700;">00</div>
+                            <div style="font-size:11px; color:#6b7280; letter-spacing:1px; text-transform:uppercase;">Minutes</div>
+                        </div>
+                        <div class="time-box" style="min-width:64px; padding:8px 10px; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); border-radius:10px; text-align:center; backdrop-filter: blur(6px);">
+                            <div id="clockSeconds" style="font-size:20px; font-weight:700;">00</div>
+                            <div style="font-size:11px; color:#6b7280; letter-spacing:1px; text-transform:uppercase;">Seconds</div>
+                        </div>
+                    </div>
+                    <div id="currentDate" style="font-size:14px;"></div>
+                    <div class="hero-buttons fade-in-delay-2">
+                        <a href="/journal.html" class="btn btn-primary">View Journal</a>
+                        <a href="/projects.html" class="btn btn-secondary">Explore Projects</a>
+                        <a href="/canvas.html" class="btn btn-primary" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);">Try CANVAS</a>
+                    </div>
+                </div>
+                <div class="hero-illustration">
+                    <div class="floating-card card-1"></div>
+                    <div class="floating-card card-2"></div>
+                    <div class="floating-card card-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-card glass-effect">
+                <div class="profile-image">
+                    <img src="img/image.jpeg" alt="Profile picture of Vanshika Tangri" width="250" height="250" style="border-radius: 50%; object-fit: cover; display: block;" />
+                </div>
+                <div>
+                    <h2 class="profile-name">Vanshika Tangri</h2>
+                    <p class="profile-title">Web Developer & Lifelong Learner</p>
+                    <p class="profile-description">
+                        Passionate about continuous learning and growth. This journal documents my journey through 
+                        modern web development, exploring everything from frontend frameworks to backend architecture. 
+                        Building real-world applications and documenting the process to master new technologies.
+                    </p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number">14+</span>
+                            <span class="stat-label">Weeks Learning</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Hours Coding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Intro Section -->
+    <section class="intro-section">
+        <div class="container">
+            <h2 class="section-title">Why Keep a Learning Journal?</h2>
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <div class="intro-icon">📝</div>
+                    <h3>Track Progress</h3>
+                    <p>Document your learning journey and see how far you've come. Track your progress over time and celebrate your achievements.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-icon">💡</div>
+                    <h3>Reflect & Learn</h3>
+                    <p>Reflect on what you've learned, identify patterns, and reinforce your knowledge through writing and documentation.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-icon">🎯</div>
+                    <h3>Set Goals</h3>
+                    <p>Set learning goals and track your progress toward achieving them. Stay motivated and focused on your learning objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Twitter API Section -->
+    <section id="twitter-section" class="journal-section" aria-labelledby="twitter-title">
+        <div class="container">
+            <h2 id="twitter-title" class="section-title">Latest Tweets</h2>
+            <div class="twitter-search">
+                <input type="text" id="twitter-search-input" placeholder="Search tweets by keyword (e.g., webdev, javascript, coding)" />
+                <button id="twitter-search-btn" class="btn btn-primary">Search</button>
+            </div>
+            <div id="twitter-feed" class="twitter-feed">
+                <div class="loading-spinner" id="twitter-loading">Loading tweets...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spotify API Section -->
+    <section id="spotify-section" class="journal-section" aria-labelledby="spotify-title">
+        <div class="container">
+            <h2 id="spotify-title" class="section-title">Music Playlists</h2>
+            <div id="spotify-playlists" class="spotify-playlists">
+                <div class="loading-spinner" id="spotify-loading">Loading playlists...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Entries Section -->
+    <section class="recent-section">
+        <div class="container">
+            <h2 class="section-title">Recent Journal Entries</h2>
+            <div class="recent-grid">
+                <article class="recent-card">
+                    <div class="recent-header">
+                        <span class="recent-week">Week 14</span>
+                        <span class="recent-date">Oct 28, 2024</span>
+                    </div>
+                    <h3 class="recent-title">Advanced React Patterns & Performance</h3>
+                    <p class="recent-excerpt">
+                        This week I dove deep into advanced React patterns including custom hooks, compound components, 
+                        and render props. Learned about React.memo, useMemo, and useCallback for performance optimization.
+                    </p>
+                    <a href="/journal.html" class="recent-link">Read More →</a>
+                </article>
+                <article class="recent-card">
+                    <div class="recent-header">
+                        <span class="recent-week">Week 13</span>
+                        <span class="recent-date">Oct 21, 2024</span>
+                    </div>
+                    <h3 class="recent-title">Building RESTful APIs with Node.js</h3>
+                    <p class="recent-excerpt">
+                        Created a full REST API with Express.js, implemented JWT authentication, and integrated MongoDB. 
+                        Learned about middleware, error handling, and API security best practices.
+                    </p>
+                    <a href="/journal.html" class="recent-link">Read More →</a>
+                </article>
+                <article class="recent-card">
+                    <div class="recent-header">
+                        <span class="recent-week">Week 12</span>
+                        <span class="recent-date">Oct 14, 2024</span>
+                    </div>
+                    <h3 class="recent-title">CSS Grid & Flexbox Mastery</h3>
+                    <p class="recent-excerpt">
+                        Mastered CSS Grid and Flexbox for creating complex, responsive layouts. Built several layout 
+                        patterns and learned when to use Grid vs Flexbox for optimal results.
+                    </p>
+                    <a href="/journal.html" class="recent-link">Read More →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journal Entry Form Section (NEW FEATURE) -->
+    <section id="journal-section" class="journal-section" aria-labelledby="journal-section-title">
+        <div class="container">
+            <h2 id="journal-section-title" class="section-title">Create New Journal Entry</h2>
+            <form id="journal-form" class="journal-form" autocomplete="off" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="entry-title">Entry Title</label>
+                        <input type="text" id="entry-title" name="title" required maxlength="100" placeholder="e.g., Learning Web APIs" />
+                    </div>
+                    <div class="form-group">
+                        <label for="entry-date">Date</label>
+                        <input type="date" id="entry-date" name="date" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="entry-content">Content</label>
+                    <textarea id="entry-content" name="content" rows="6" required maxlength="1000" placeholder="Describe what you learned today..."></textarea>
+                    <small class="char-count"><span id="char-count">0</span>/1000 characters</small>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="save-entry" class="btn btn-primary">Save Entry</button>
+                    <button type="button" id="copy-entry" class="btn btn-secondary" style="display: none;">Copy to Clipboard</button>
+                </div>
+                <!-- Feedback area for form validation -->
+                <div id="form-feedback" aria-live="assertive" class="feedback"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Journal Entries Display Section -->
+    <section id="entries-section" class="journal-section" aria-labelledby="entries-title">
+        <div class="container">
+            <h2 id="entries-title" class="section-title">Your Saved Journal Entries</h2>
+            <div id="entries-list" class="entries-list journal-grid">
+                <!-- Dynamically inserted journal entries go here -->
+            </div>
+            <div id="no-entries" class="no-entries" style="display: none;">
+                <p>No entries yet. Create your first journal entry above!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Validation Feedback -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-message">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <button id="modal-close" class="btn btn-primary">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LearnJournal</h3>
+                    <p>Documenting the journey of continuous learning and growth.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/journal.html">Journal</a></li>
+                        <li><a href="/projects.html">Projects</a></li>
+                        <li><a href="/about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/vtangri" class="social-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/vanshika-tangri-47ab07303/" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LearnJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MAIN SCRIPTS: in dependency order -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/browser.js" defer></script>
+    <script src="js/thirdparty.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(registration => console.log('Service Worker registered:', registration.scope))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        });
+      }
+    </script>
+</body>
+</html>

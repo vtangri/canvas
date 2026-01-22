@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/canvas.css">
+    <title>Creative Canvas Dashboard - Learning Journal PWA</title>
+    <!-- Load theme immediately to prevent flash -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                    document.body.classList.add('light-mode');
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar (Injected) -->
+    <div id="nav"></div>
+
+    <!-- Top Toolbar - Always Visible -->
+    <section class="canvas-toolbar">
+        <div class="container">
+            <div class="toolbar-content">
+                <!-- Drawing Tools -->
+                <div class="toolbar-group">
+                    <div class="toolbar-tools">
+                        <button class="toolbar-btn active" data-tool="brush" title="Brush (B)">
+                            <span class="toolbar-icon">✏️</span>
+                            <span class="toolbar-label">Brush</span>
+                        </button>
+                        <button class="toolbar-btn" data-tool="line" title="Line (L)">
+                            <span class="toolbar-icon">📏</span>
+                            <span class="toolbar-label">Line</span>
+                        </button>
+                        <button class="toolbar-btn" data-tool="rectangle" title="Rectangle (R)">
+                            <span class="toolbar-icon">▭</span>
+                            <span class="toolbar-label">Rect</span>
+                        </button>
+                        <button class="toolbar-btn" data-tool="circle" title="Circle (C)">
+                            <span class="toolbar-icon">○</span>
+                            <span class="toolbar-label">Circle</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
+
+                <!-- Color Picker -->
+                <div class="toolbar-group">
+                    <input type="color" id="toolbarColorPicker" value="#6366f1" class="toolbar-color-picker" title="Color">
+                    <div class="toolbar-color-display" id="toolbarColorDisplay" style="background: #6366f1;"></div>
+                </div>
+
+                <!-- Brush Size -->
+                <div class="toolbar-group">
+                    <label class="toolbar-label-small">Size:</label>
+                    <input type="range" id="toolbarBrushSize" min="1" max="50" value="5" class="toolbar-slider" title="Brush Size">
+                    <span class="toolbar-size-value" id="toolbarBrushSizeValue">5</span>
+                </div>
+
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
+
+                <!-- Actions Section -->
+                <div class="toolbar-group toolbar-actions-group">
+                    <label class="toolbar-section-label">Actions:</label>
+                    <button class="toolbar-btn" id="toolbarUndoBtn" title="Undo (Ctrl+Z)">
+                        <span class="toolbar-icon">↶</span>
+                        <span class="toolbar-label">Undo</span>
+                    </button>
+                    <button class="toolbar-btn" id="toolbarRedoBtn" title="Redo (Ctrl+Shift+Z)">
+                        <span class="toolbar-icon">↷</span>
+                        <span class="toolbar-label">Redo</span>
+                    </button>
+                    <button class="toolbar-btn danger" id="toolbarClearBtn" title="Clear Canvas">
+                        <span class="toolbar-icon">🗑️</span>
+                        <span class="toolbar-label">Clear</span>
+                    </button>
+                </div>
+
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
+
+                <!-- Save & Export -->
+                <div class="toolbar-group">
+                    <button class="toolbar-btn primary" id="toolbarSaveBtn" title="Save">
+                        <span class="toolbar-icon">💾</span>
+                        <span class="toolbar-label">Save</span>
+                    </button>
+                    <button class="toolbar-btn" id="toolbarExportBtn" title="Export PNG">
+                        <span class="toolbar-icon">📥</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Canvas Dashboard -->
+    <section class="canvas-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Left Sidebar: Tools Panel -->
+                <aside class="tools-panel glass-effect">
+                    <h2 class="panel-title">Tools</h2>
+                    
+                    <!-- Tool Selection -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Drawing Tools</h3>
+                        <div class="tool-buttons">
+                            <button class="tool-btn active" data-tool="brush" title="Brush Tool">
+                                <span class="tool-icon">✏️</span>
+                                <span class="tool-label">Brush</span>
+                            </button>
+                            <button class="tool-btn" data-tool="line" title="Line Tool">
+                                <span class="tool-icon">📏</span>
+                                <span class="tool-label">Line</span>
+                            </button>
+                            <button class="tool-btn" data-tool="rectangle" title="Rectangle Tool">
+                                <span class="tool-icon">▭</span>
+                                <span class="tool-label">Rectangle</span>
+                            </button>
+                            <button class="tool-btn" data-tool="circle" title="Circle Tool">
+                                <span class="tool-icon">○</span>
+                                <span class="tool-label">Circle</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Color Picker -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Color</h3>
+                        <div class="color-picker-container">
+                            <input type="color" id="colorPicker" value="#6366f1" class="color-picker">
+                            <div class="color-presets">
+                                <button class="color-preset" data-color="#6366f1" style="background: #6366f1;"></button>
+                                <button class="color-preset" data-color="#8b5cf6" style="background: #8b5cf6;"></button>
+                                <button class="color-preset" data-color="#ec4899" style="background: #ec4899;"></button>
+                                <button class="color-preset" data-color="#10b981" style="background: #10b981;"></button>
+                                <button class="color-preset" data-color="#f59e0b" style="background: #f59e0b;"></button>
+                                <button class="color-preset" data-color="#ef4444" style="background: #ef4444;"></button>
+                                <button class="color-preset" data-color="#000000" style="background: #000000;"></button>
+                                <button class="color-preset" data-color="#ffffff" style="background: #ffffff; border: 1px solid var(--glass-border);"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brush Size -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Brush Size</h3>
+                        <div class="brush-size-control">
+                            <input type="range" id="brushSize" min="1" max="50" value="5" class="slider">
+                            <span class="brush-size-value" id="brushSizeValue">5</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Actions</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn" id="undoBtn" title="Undo (Ctrl+Z)">
+                                <span class="action-icon">↶</span>
+                                <span class="action-label">Undo</span>
+                            </button>
+                            <button class="action-btn" id="redoBtn" title="Redo (Ctrl+Shift+Z)">
+                                <span class="action-icon">↷</span>
+                                <span class="action-label">Redo</span>
+                            </button>
+                            <button class="action-btn danger" id="clearBtn" title="Clear Canvas">
+                                <span class="action-icon">🗑️</span>
+                                <span class="action-label">Clear</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Save & Export -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Save & Export</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn primary" id="saveBtn" title="Save Drawing">
+                                <span class="action-icon">💾</span>
+                                <span class="action-label">Save</span>
+                            </button>
+                            <button class="action-btn" id="exportBtn" title="Export as PNG">
+                                <span class="action-icon">📥</span>
+                                <span class="action-label">Export PNG</span>
+                            </button>
+                            <button class="action-btn" id="exportJpgBtn" title="Export as JPEG">
+                                <span class="action-icon">📷</span>
+                                <span class="action-label">Export JPEG</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filters & Effects -->
+                    <div class="tool-group">
+                        <h3 class="tool-group-title">Filters & Effects</h3>
+                        <div class="filter-buttons">
+                            <button class="filter-btn" data-filter="grayscale" title="Grayscale">
+                                <span class="filter-icon">⚫</span>
+                                <span class="filter-label">Grayscale</span>
+                            </button>
+                            <button class="filter-btn" data-filter="sepia" title="Sepia">
+                                <span class="filter-icon">🟤</span>
+                                <span class="filter-label">Sepia</span>
+                            </button>
+                            <button class="filter-btn" data-filter="invert" title="Invert Colors">
+                                <span class="filter-icon">🔄</span>
+                                <span class="filter-label">Invert</span>
+                            </button>
+                            <button class="filter-btn" data-filter="blur" title="Blur">
+                                <span class="filter-icon">🌫️</span>
+                                <span class="filter-label">Blur</span>
+                            </button>
+                            <button class="filter-btn" data-filter="brightness" title="Brightness">
+                                <span class="filter-icon">☀️</span>
+                                <span class="filter-label">Bright</span>
+                            </button>
+                            <button class="filter-btn" data-filter="contrast" title="Contrast">
+                                <span class="filter-icon">⚡</span>
+                                <span class="filter-label">Contrast</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Save Status -->
+                    <div class="save-status" id="saveStatus">
+                        <span class="save-icon">💾</span>
+                        <span class="save-text" id="saveText">Saved</span>
+                    </div>
+                </aside>
+
+                <!-- Center: Canvas Area -->
+                <main class="canvas-area">
+                    <div class="canvas-container glass-effect">
+                        <canvas id="drawingCanvas"></canvas>
+                    </div>
+                </main>
+
+                <!-- Right Sidebar: Reflection & History Panel -->
+                <aside class="reflection-panel glass-effect">
+                    <!-- Tabs -->
+                    <div class="panel-tabs">
+                        <button class="panel-tab active" data-tab="reflection">Reflection</button>
+                        <button class="panel-tab" data-tab="history">History</button>
+                    </div>
+
+                    <!-- Reflection Tab -->
+                    <div class="tab-content active" id="reflectionTab">
+                        <h2 class="panel-title">Reflection</h2>
+                        <div class="reflection-content">
+                            <textarea 
+                                id="reflectionText" 
+                                class="reflection-textarea" 
+                                placeholder="Share your thoughts, ideas, or reflections about your creation..."
+                                rows="10"
+                            ></textarea>
+                            <div class="reflection-meta">
+                                <span class="reflection-timestamp" id="reflectionTimestamp"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Tab -->
+                    <div class="tab-content" id="historyTab">
+                        <h2 class="panel-title">Saved History</h2>
+                        <div class="history-content">
+                            <div class="history-list" id="historyList">
+                                <div class="history-empty" id="historyEmpty">
+                                    <p>No saved drawings yet.</p>
+                                    <p class="history-hint">Click "Save" to save your current drawing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LearnJournal</h3>
+                    <p>Documenting the journey of continuous learning and growth.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/journal.html">Journal</a></li>
+                        <li><a href="/projects.html">Projects</a></li>
+                        <li><a href="/canvas.html">Canvas</a></li>
+                        <li><a href="/about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/vtangri" class="social-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/vanshika-tangri-47ab07303/" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LearnJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MAIN SCRIPTS: in dependency order -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/browser.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/canvas-greeting.js" defer></script>
+    <script src="js/canvas-drawing.js" defer></script>
+    <script src="js/canvas-tools.js" defer></script>
+    <script src="js/canvas-storage.js" defer></script>
+    <script src="js/canvas-filters.js" defer></script>
+    <script src="js/canvas-history.js" defer></script>
+    <script src="js/canvas-color.js" defer></script>
+    <script src="js/canvas-toolbar.js" defer></script>
+    <script src="js/canvas.js" defer></script>
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(registration => console.log('Service Worker registered:', registration.scope))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        });
+      }
+    </script>
+</body>
+</html>
+

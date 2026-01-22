@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Journal - Offline</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .offline-wrapper {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-align: center;
+      padding: 2rem;
+    }
+    .offline-card {
+      max-width: 520px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+    .offline-card h1 {
+      margin-bottom: 0.75rem;
+      font-size: 1.75rem;
+    }
+    .offline-card p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    .offline-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .offline-btn {
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      background: var(--accent-gradient);
+      color: #fff;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .offline-btn.secondary {
+      background: transparent;
+      color: var(--text-primary);
+    }
+    .offline-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-wrapper">
+    <div class="offline-card">
+      <div style="font-size: 3rem; margin-bottom: 0.5rem;">📡</div>
+      <h1>Offline Mode</h1>
+      <p>You are currently offline. Your cached pages are still available.</p>
+      <p>If you just added entries, they will sync automatically once connection returns.</p>
+      <div class="offline-actions">
+        <button class="offline-btn" onclick="window.location.reload()">Retry Connection</button>
+        <button class="offline-btn secondary" onclick="window.location.href='/'">Back to Home</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

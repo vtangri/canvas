@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Journal - Projects</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="manifest.json">
+    <!-- Load theme immediately to prevent flash -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                    document.body.classList.add('light-mode');
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar (Injected) -->
+    <div id="nav"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title fade-in">Projects Showcase</h1>
+            <p class="page-subtitle fade-in-delay">Building, learning, and growing through hands-on projects</p>
+        </div>
+    </section>
+
+    <!-- Filter Categories -->
+    <section class="projects-filter">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All Projects</button>
+                <button class="filter-btn" data-category="web">Web Apps</button>
+                <button class="filter-btn" data-category="mobile">Mobile</button>
+                <button class="filter-btn" data-category="api">APIs</button>
+                <button class="filter-btn" data-category="design">Design</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-grid" id="projectsGrid">
+                
+                <!-- Project 1 -->
+                <article class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <span class="placeholder-icon">🌐</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-Commerce Dashboard</h3>
+                        <p class="project-description">
+                            A full-featured admin dashboard for managing products, orders, and analytics with real-time updates.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Chart.js</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Oct 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card" data-category="mobile">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <span class="placeholder-icon">📱</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Fitness Tracking App</h3>
+                        <p class="project-description">
+                            Progressive web app for tracking workouts, calories, and fitness goals with offline support.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PWA</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">IndexedDB</span>
+                            <span class="tech-tag">Service Worker</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Sep 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card" data-category="api">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <span class="placeholder-icon">🔌</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">REST API for Social Network</h3>
+                        <p class="project-description">
+                            RESTful API with authentication, posts, comments, and real-time notifications system.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">Socket.io</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Sep 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <span class="placeholder-icon">🎨</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Portfolio Website Builder</h3>
+                        <p class="project-description">
+                            Drag-and-drop portfolio builder with customizable themes and responsive templates.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">DnD Kit</span>
+                            <span class="tech-tag">Tailwind</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-progress">In Progress</span>
+                            <span class="project-date">Oct 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 5 -->
+                <article class="project-card" data-category="design">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <span class="placeholder-icon">✨</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Animated Landing Pages</h3>
+                        <p class="project-description">
+                            Collection of modern landing pages with smooth animations and interactive elements.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">GSAP</span>
+                            <span class="tech-tag">Three.js</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Aug 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6 -->
+                <article class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                            <span class="placeholder-icon">📊</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Data Visualization Dashboard</h3>
+                        <p class="project-description">
+                            Interactive dashboard for visualizing complex datasets with charts, graphs, and filters.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">API</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Aug 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 7 -->
+                <article class="project-card" data-category="api">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                            <span class="placeholder-icon">🔒</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Authentication System</h3>
+                        <p class="project-description">
+                            Secure authentication system with OAuth, 2FA, and session management capabilities.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Passport</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Jul 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 8 -->
+                <article class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                            <span class="placeholder-icon">💬</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Real-Time Chat Application</h3>
+                        <p class="project-description">
+                            Full-featured chat app with rooms, direct messages, file sharing, and typing indicators.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-progress">In Progress</span>
+                            <span class="project-date">Oct 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 9 -->
+                <article class="project-card" data-category="mobile">
+                    <div class="project-image">
+                        <div class="project-placeholder" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                            <span class="placeholder-icon">📝</span>
+                        </div>
+                        <div class="project-overlay">
+                            <button class="overlay-btn">View Details</button>
+                            <button class="overlay-btn secondary">Live Demo</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Note-Taking PWA</h3>
+                        <p class="project-description">
+                            Offline-first note-taking app with markdown support, categories, and cloud sync.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PWA</span>
+                            <span class="tech-tag">IndexedDB</span>
+                            <span class="tech-tag">Markdown</span>
+                            <span class="tech-tag">Service Worker</span>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-completed">Completed</span>
+                            <span class="project-date">Jul 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LearnJournal</h3>
+                    <p>Documenting the journey of continuous learning and growth.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/journal.html">Journal</a></li>
+                        <li><a href="/projects.html">Projects</a></li>
+                        <li><a href="/about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/vtangri" class="social-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/vanshika-tangri-47ab07303/" class="social-link">LinkedIn</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LearnJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/storage.js" defer></script>
+    <script src="js/browser.js" defer></script>
+    <script src="js/thirdparty.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/projects.js" defer></script>
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(registration => console.log('Service Worker registered:', registration.scope))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        });
+      }
+    </script>
+</body>
+</html>

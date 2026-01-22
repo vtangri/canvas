@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Journal - Weekly Entries</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="manifest.json">
+    <!-- Load theme immediately to prevent flash -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                    document.body.classList.add('light-mode');
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- Navigation Bar (Injected) -->
+    <div id="nav"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title fade-in">Learning Journal</h1>
+            <p class="page-subtitle fade-in-delay">14 weeks of continuous growth and discovery</p>
+
+            <!-- Week Progress Tracker -->
+            <div class="week-tracker fade-in-delay-2">
+                <div class="tracker-info">
+                    <span class="tracker-label">Progress</span>
+                    <span class="tracker-week">Week <span id="currentWeek">14</span> of 14</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <!-- Entry Counter Stats -->
+            <div class="stats-container fade-in-delay-3"
+                style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem;">
+                <div class="stat-item" style="text-align: center;">
+                    <div class="stat-number" id="totalEntries"
+                        style="font-size: 2.5rem; font-weight: 700; color: #6366f1;">0</div>
+                    <div class="stat-label" style="font-size: 0.875rem; color: #888; margin-top: 0.25rem;">Total Entries
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Journal Entry Form (After Journal Cards) -->
+    <section class="journal-add-section">
+        <div class="container">
+            <h2 class="section-title">Add a New Journal Entry</h2>
+            <form id="journalForm" class="journal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weekOfJournal">Week Of Journal</label>
+                        <input type="number" id="weekOfJournal" name="weekOfJournal" min="1" placeholder="e.g., 15"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="journalName">My Journal Name</label>
+                        <input type="text" id="journalName" name="journalName" placeholder="e.g., Learning Web APIs"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="journalDate">My Journal Date</label>
+                        <input type="date" id="journalDate" name="journalDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskName">Journal Task Name</label>
+                        <input type="text" id="taskName" name="taskName" placeholder="e.g., Built a fetch wrapper"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskDescription">Journal Task Description (min 10 words)</label>
+                    <textarea id="taskDescription" name="taskDescription" rows="4"
+                        placeholder="Describe what you did and learned..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Technologies Used</label>
+                    <div class="checkbox-group" id="technologies">
+                        <label><input type="checkbox" value="HTML"> HTML</label>
+                        <label><input type="checkbox" value="CSS"> CSS</label>
+                        <label><input type="checkbox" value="JavaScript"> JavaScript</label>
+                        <label><input type="checkbox" value="PWA"> PWA</label>
+                        <label><input type="checkbox" value="Manifest"> Manifest</label>
+                        <label><input type="checkbox" value="Responsive Design"> Responsive Design</label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Journal Entry</button>
+                </div>
+
+                <p id="formError" style="color:#dc2626; margin-top:12px; display:none;"></p>
+                <p id="formSuccess" style="color:#16a34a; margin-top:12px; display:none;"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Modal for Success Alert -->
+    <div id="journal-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="journal-modal-title"
+        aria-describedby="journal-modal-message">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-icon" style="font-size: 4rem; text-align: center; margin-bottom: 1rem;">✅</div>
+            <h3 id="journal-modal-title" style="text-align: center; margin-bottom: 1rem;">Success!</h3>
+            <p id="journal-modal-message" style="text-align: center; margin-bottom: 1.5rem;"></p>
+            <button id="journal-modal-close" class="btn btn-primary" style="width: 100%;">Close</button>
+        </div>
+    </div>
+
+    <!-- Journal Entries -->
+    <section class="journal-section">
+        <div class="container">
+            <!-- Filter/Sort Options -->
+            <div class="journal-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search entries...">
+                </div>
+                <select id="sortFilter" class="filter-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+
+                <!-- Export Button -->
+                <button id="exportBtn" class="btn btn-secondary"
+                    style="padding: 0.75rem 1.5rem; background: #10b981; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                    📥 Export JSON
+                </button>
+            </div>
+
+            <!-- Date Filter Controls -->
+            <div class="filter-controls"
+                style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                <input type="date" id="filterStartDate" class="filter-input" placeholder="From date"
+                    style="padding: 0.75rem; border: 1px solid #333; border-radius: 8px; background: #1a1a1a; color: #fff;">
+                <input type="date" id="filterEndDate" class="filter-input" placeholder="To date"
+                    style="padding: 0.75rem; border: 1px solid #333; border-radius: 8px; background: #1a1a1a; color: #fff;">
+                <button id="applyDateFilter" class="btn btn-secondary"
+                    style="padding: 0.75rem 1.5rem; background: #6366f1; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600;">
+                    Apply Filter
+                </button>
+                <button id="clearFilters" class="btn btn-secondary"
+                    style="padding: 0.75rem 1.5rem; background: #ef4444; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600;">
+                    Clear Filters
+                </button>
+            </div>
+
+            <!-- Journal Entries Grid -->
+            <div class="journal-grid" id="journalGrid">
+
+                <!-- Week 8 -->
+                <article class="journal-card">
+                    <div class="journal-badge">
+                        <span class="badge-week">Week 8</span>
+                        <span class="badge-date">Sep 16, 2024</span>
+                    </div>
+                    <h2 class="journal-title">TypeScript Fundamentals</h2>
+                    <div class="journal-tags">
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Types</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <p class="journal-excerpt">
+                        Started learning TypeScript - types, interfaces, generics, and type inference. Converted
+                        JavaScript projects to TypeScript and understood the benefits of static typing.
+                    </p>
+                    <div class="journal-meta">
+                        <span class="meta-item">📚 6 hours learning</span>
+                        <span class="meta-item">💻 3 projects</span>
+                    </div>
+                    <button class="read-more-btn">Read Full Entry →</button>
+                </article>
+
+                <!-- Week 7 -->
+                <article class="journal-card">
+                    <div class="journal-badge">
+                        <span class="badge-week">Week 7</span>
+                        <span class="badge-date">Sep 9, 2024</span>
+                    </div>
+                    <h2 class="journal-title">Web Animations with CSS & JavaScript</h2>
+                    <div class="journal-tags">
+                        <span class="tag">Animation</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">GSAP</span>
+                    </div>
+                    <p class="journal-excerpt">
+                        Explored CSS animations, transitions, and keyframes. Also learned GSAP for complex animations
+                        and created smooth, performant animations for web interfaces.
+                    </p>
+                    <div class="journal-meta">
+                        <span class="meta-item">📚 5 hours learning</span>
+                        <span class="meta-item">💻 4 projects</span>
+                    </div>
+                    <button class="read-more-btn">Read Full Entry →</button>
+                </article>
+
+                <!-- Week 6 -->
+                <article class="journal-card">
+                    <div class="journal-badge">
+                        <span class="badge-week">Week 6</span>
+                        <span class="badge-date">Sep 2, 2024</span>
+                    </div>
+                    <h2 class="journal-title">Database Design & SQL</h2>
+                    <div class="journal-tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Database</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                    <p class="journal-excerpt">
+                        Learned database design principles, normalization, and SQL queries. Worked with PostgreSQL,
+                        created complex queries with joins, and optimized database performance.
+                    </p>
+                    <div class="journal-meta">
+                        <span class="meta-item">📚 6 hours learning</span>
+                        <span class="meta-item">💻 2 projects</span>
+                    </div>
+                    <button class="read-more-btn">Read Full Entry →</button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LearnJournal</h3>
+                    <p>Documenting the journey of continuous learning and growth.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/journal.html">Journal</a></li>
+                        <li><a href="/projects.html">Projects</a></li>
+                        <li><a href="/about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/vtangri" class="social-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/vanshika-tangri-47ab07303/"
+                            class="social-link">LinkedIn</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LearnJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/storage.js" defer></script>
+    <script src="js/browser.js" defer></script>
+    <script src="js/thirdparty.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/journal.js" defer></script>
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(registration => console.log('Service Worker registered:', registration.scope))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        });
+      }
+    </script>
+</body>
+
+</html>
