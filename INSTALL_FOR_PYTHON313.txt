@@ -1,0 +1,38 @@
+═══════════════════════════════════════════════════════════════
+  INSTALL flask-cors FOR PYTHON 3.13.1
+═══════════════════════════════════════════════════════════════
+
+Your server is using Python 3.13.1 (not 3.10!)
+
+Copy and paste this command into PythonAnywhere Bash:
+
+───────────────────────────────────────────────────────────────
+cd ~/mysite && python3.13 -m pip install --user flask-cors && python3.13 -c "import flask_cors; print('✅ SUCCESS!')" && echo "Now reload your web app!"
+───────────────────────────────────────────────────────────────
+
+Alternative commands if above doesn't work:
+
+───────────────────────────────────────────────────────────────
+python3 -m pip install --user flask-cors
+───────────────────────────────────────────────────────────────
+
+Or:
+
+───────────────────────────────────────────────────────────────
+pip3.13 install --user flask-cors
+───────────────────────────────────────────────────────────────
+
+After installing:
+1. Go to Web tab
+2. Click "Reload" button
+3. Wait 10 seconds
+4. Visit: https://canvaas.pythonanywhere.com
+
+═══════════════════════════════════════════════════════════════
+
+NOTE: Your server is already running! The site might work
+      even without flask-cors (using fallback CORS headers).
+      Try visiting it first!
+
+═══════════════════════════════════════════════════════════════
+

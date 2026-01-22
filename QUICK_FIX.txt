@@ -1,0 +1,30 @@
+═══════════════════════════════════════════════════════════════
+  QUICK FIX FOR flask_cors ERROR
+═══════════════════════════════════════════════════════════════
+
+Copy and paste this ENTIRE command into PythonAnywhere Bash:
+
+───────────────────────────────────────────────────────────────
+cd ~/mysite && pip3.10 install --user flask-cors && python3.10 -c "import flask_cors; print('✅ SUCCESS!')" && echo "Now reload your web app!"
+───────────────────────────────────────────────────────────────
+
+If that doesn't work, try:
+
+───────────────────────────────────────────────────────────────
+pip3.9 install --user flask-cors
+───────────────────────────────────────────────────────────────
+
+Or:
+
+───────────────────────────────────────────────────────────────
+pip3 install --user flask-cors
+───────────────────────────────────────────────────────────────
+
+After running the command:
+1. Go to Web tab
+2. Click "Reload" button (green)
+3. Wait 10-15 seconds
+4. Visit: https://canvaas.pythonanywhere.com
+
+═══════════════════════════════════════════════════════════════
+
